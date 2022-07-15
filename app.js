@@ -1,9 +1,9 @@
 let lotto = {
   maxResultsLength: 6,
   numOfBalls: 59,
-  userGuess: [1, 2, 3, 4, 5, 6],
+  userGuess: [],
   matchingNums: [],
-  drawnBalls: [1, 2, 3, 4, 5, 6],
+  drawnBalls: [],
   luckyDipTotal: [],
 };
 
@@ -216,39 +216,41 @@ function playGame(e) {
   console.log(matchingNums, "matched");
 }
 // RESET
-let reset = document.querySelector("#reset");
+// let reset = document.querySelector("#reset");
 reset.addEventListener("click", function (e) {
-  matchingNums = [];
-  drawnBalls = [];
-  luckyDipTotal = [];
-  userGuess = [];
+  window.location.reload();
 
-  drawOne.value = "";
-  drawTwo.value = "";
-  drawThree.value = "";
-  drawFour.value = "";
-  drawFive.value = "";
-  drawSix.value = "";
+  // alt rest option below
 
-  luckyDipOne.innerHTML = "";
-  luckyDipTwo.innerHTML = "";
-  luckyDipThree.innerHTML = "";
-  luckyDipFour.innerHTML = "";
-  luckyDipFive.innerHTML = "";
-  luckyDipSix.innerHTML = "";
+  // matchingNums = [];
+  // drawnBalls = [];
+  // luckyDipTotal = [];
+  // userGuess = [];
 
-  result.innerHTML = "";
+  // drawOne.value = "";
+  // drawTwo.value = "";
+  // drawThree.value = "";
+  // drawFour.value = "";
+  // drawFive.value = "";
+  // drawSix.value = "";
 
-  picked1.value = "";
-  picked2.value = "";
-  picked3.value = "";
-  picked4.value = "";
-  picked5.value = "";
-  picked6.value = "";
+  // luckyDipOne.innerHTML = "";
+  // luckyDipTwo.innerHTML = "";
+  // luckyDipThree.innerHTML = "";
+  // luckyDipFour.innerHTML = "";
+  // luckyDipFive.innerHTML = "";
+  // luckyDipSix.innerHTML = "";
 
-  submitLuckyDipBtn.removeAttribute("disabled");
-  submitBtn.removeAttribute("disabled");
-  submitPicked.removeAttribute("disabled");
+  // result.innerHTML = "";
+
+  // picked1.value = "";
+  // picked2.value = "";
+  // picked3.value = "";
+  // picked4.value = "";
+  // picked5.value = "";
+  // picked6.value = "";
+
+  // submitLuckyDipBtn.removeAttribute("disabled");
+  // submitBtn.removeAttribute("disabled");
+  // submitPicked.removeAttribute("disabled");
 });
-// alt rest option
-// window.location.reload()
