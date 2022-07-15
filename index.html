@@ -1,0 +1,99 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lotto Pick</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <h1>LOTTO PICK</h1>
+    <h2>Winning Numbers</h2>
+    <input type="text" id="one" />
+    <input type="text" id="two" />
+    <input type="text" id="three" />
+    <input type="text" id="four" />
+    <input type="text" id="five" />
+    <input type="text" id="six" />
+    <button id="submit">Play</button>
+
+    <h3>Your Lucky Dip</h3>
+    <ul id="luckydipContainer">
+      <li id="luckyDipOne"></li>
+      <li id="luckyDipTwo"></li>
+      <li id="luckyDipThree"></li>
+      <li id="luckyDipFour"></li>
+      <li id="luckyDipFive"></li>
+      <li id="luckyDipSix"></li>
+    </ul>
+    <!-- <input type="text" id="luckyDipOne" /> -->
+    <button id="submitLuckyDipBtn">Lukcy Dip?</button>
+
+    <h3>Select Your Numbers</h3>
+    <p>choose six numbers between 1 - 59</p>
+
+    <input
+      id="picked1"
+      type="number"
+      class="pickedNums"
+      max="59"
+      min="1"
+      required
+      placeholder="_ _"
+    />
+    <input
+      id="picked2"
+      type="number"
+      class="pickedNums"
+      max="59"
+      min="1"
+      required
+      placeholder="_ _"
+    />
+    <input
+      id="picked3"
+      type="number"
+      class="pickedNums"
+      max="59"
+      min="1"
+      required
+      placeholder="_ _"
+    />
+    <input
+      id="picked4"
+      type="number"
+      class="pickedNums"
+      max="59"
+      min="1"
+      required
+      placeholder="_ _"
+    />
+    <input
+      id="picked5"
+      type="number"
+      class="pickedNums"
+      max="59"
+      min="1"
+      required
+      placeholder="_ _"
+    />
+    <input
+      id="picked6"
+      type="number"
+      class="pickedNums"
+      max="59"
+      min="1"
+      required
+      placeholder="_ _"
+    />
+    <button id="submitPicked" value="submit">Submit</button>
+
+    <!-- <p id="guestResult"></p> -->
+
+    <h3>Your results</h3>
+    <p id="result"></p>
+
+    <button id="reset">Reset</button>
+    <script src="app.js"></script>
+  </body>
+</html>
