@@ -1,9 +1,9 @@
 let lotto = {
   maxResultsLength: 6,
   numOfBalls: 59,
-  userGuess: [],
+  userGuess: [1, 2, 3, 4, 5, 6],
   matchingNums: [],
-  drawnBalls: [],
+  drawnBalls: [1, 2, 3, 4, 5, 6],
   luckyDipTotal: [],
 };
 
@@ -27,70 +27,11 @@ let drawFour = document.querySelector("#four");
 let drawFive = document.querySelector("#five");
 let drawSix = document.querySelector("#six");
 
-// play button
+// play game btn
 let submitBtn = document.getElementById("submit");
-// play drawn balls
-function toggle(e) {
-  try {
-    playGame();
-    if (luckyDipTotal.length === maxResultsLength) {
-      // luckydip
-      for (let i = 0; i < drawnBalls.length; i++) {
-        for (let j = 0; j < luckyDipTotal.length; j++) {
-          if (drawnBalls[i] == luckyDipTotal[j]) {
-            matchingNums.push(drawnBalls[i]);
-            console.log(matchingNums, "matched balls");
-          }
-          for (let i = 0; i < matchingNums; i++) {
-            if (matchingNums.length === 2) {
-              results.innerHTML = `You win £50`;
-            } else if (matchingNums.length === 3) {
-              results.innerHTML = `You win £100`;
-            } else if (matchingNums.length === 4) {
-              results.innerHTML = `You win £200`;
-            } else if (matchingNums.length === 5) {
-              results.innerHTML = `You win £500`;
-            } else {
-              results.innerHTML = `you lose`;
-            }
-          }
-        }
-      }
-    } else if (userGuess.length === maxResultsLength) {
-      // guest picked
-      for (let i = 0; i < drawnBalls.length; i++) {
-        for (let k = 0; k < userGuess.length; k++) {
-          if (drawnBalls[i] == userGuess[k]) {
-            matchingNums.push(drawnBalls[i]);
-            console.log(matchingNums, "matched balls");
-          }
-          for (let i = 0; i < matchingNums; i++) {
-            if (matchingNums.length === 2) {
-              results.innerHTML = `You win £50`;
-            } else if (matchingNums.length === 3) {
-              results.innerHTML = `You win £100`;
-            } else if (matchingNums.length === 4) {
-              results.innerHTML = `You win £200`;
-            } else if (matchingNums.length === 5) {
-              results.innerHTML = `You win £500`;
-            } else {
-              results.innerHTML = `you lose`;
-            }
-          }
-        }
-      }
-    }
-  } catch (error) {
-    console.log(error, "i am error");
-    return;
-  }
-  console.log(drawnBalls, "drawn");
-  console.log(luckyDipTotal, "lucky");
-  console.log(matchingNums, "matched");
-}
 
-// Ball Drawn Functions
-function playGame() {
+// winning ball generator
+function winningBalls() {
   let ballOne = (drawOne.value = Math.floor(Math.random() * 59) + 1);
   let ballTwo = (drawTwo.value = Math.floor(Math.random() * 59) + 1);
   let ballThree = (drawThree.value = Math.floor(Math.random() * 59) + 1);
@@ -112,7 +53,7 @@ function playGame() {
   if (resultToReturn) {
     console.log("Duplicate elements exist");
     drawnBalls = [];
-    playGame();
+    winningBalls();
     console.log("user guess elements exist", userGuess);
   } else {
     console.log("Duplicates dont exist ");
@@ -128,17 +69,14 @@ let luckyDipFix = document.getElementById("luckyDipFive");
 let luckyDipSix = document.getElementById("luckyDipSix");
 let luckyDipBtn = document.getElementById("submitLuckyDipBtn");
 
-// luckydip submit button
+// luckydip submit
 luckyDipBtn.addEventListener("click", function (e) {
-  // submitBtn.style.visibility = "hidden";
-  // pickBtn.style.visibility = "visible";
-  // resultsDiv.style.visibility = "visible";
-
   luckyDipPicker();
-  submitBtn.addEventListener("click", toggle, true);
+  submitPicked.setAttribute("disabled", "");
+  submitBtn.addEventListener("click", playGame, true);
 });
 
-// luckydip number generator
+// luckydip generator
 function luckyDipPicker() {
   luckyDipTotal.push(
     (luckyDipOne.innerHTML =
@@ -177,7 +115,7 @@ function luckyDipPicker() {
     console.log("Duplicates dont exist ");
   }
 }
-/// guest numbers picked
+/// guess numbers
 submitPicked = document.querySelector("#submitPicked");
 picked1 = document.querySelector("#picked1");
 picked2 = document.querySelector("#picked2");
@@ -186,13 +124,14 @@ picked4 = document.querySelector("#picked4");
 picked5 = document.querySelector("#picked5");
 picked6 = document.querySelector("#picked6");
 
-// ball picked submit
+// guess submit
 submitPicked.addEventListener("click", function () {
-  submitBtn.addEventListener("click", toggle, true);
-  guestGame();
+  submitBtn.addEventListener("click", playGame, true);
+  submitLuckyDipBtn.setAttribute("disabled", "");
+  guessGame();
 });
 
-function guestGame(e) {
+function guessGame(e) {
   userGuess.push(picked1.value);
   userGuess.push(picked2.value);
   userGuess.push(picked3.value);
@@ -200,11 +139,10 @@ function guestGame(e) {
   userGuess.push(picked5.value);
   userGuess.push(picked6.value);
   for (let i = 0; i < userGuess.length; i++) {
-    if (userGuess[i] === "") {
-      // console.log(userGuess[i], "nooooo");
+    if (userGuess[i] === "" || userGuess[i] < 0) {
+      console.log(userGuess[i], "error");
       userGuess.splice(userGuess[i]);
-      // console.log(userGuess, "user guess");
-      alert("pick 6 numbers");
+      alert("pick 6 valid numbers");
     } else if (userGuess.length === 6) {
       console.log(userGuess, "6 numbers picked");
     }
@@ -224,6 +162,59 @@ function guestGame(e) {
   }
 }
 
+function winChecker(matchingNums) {
+  if (matchingNums.length == 2) {
+    results.innerHTML = `You win £50`;
+  } else if (matchingNums.length == 3) {
+    results.innerHTML = `You win £100`;
+  } else if (matchingNums.length == 4) {
+    results.innerHTML = `You win £200`;
+  } else if (matchingNums.length == 5) {
+    results.innerHTML = `You win £500`;
+  } else if (matchingNums.length <= 1) {
+    results.innerHTML = `you lose`;
+  } else {
+    console.log(error);
+  }
+}
+
+// play game
+function playGame(e) {
+  try {
+    winningBalls();
+    if (luckyDipTotal.length === maxResultsLength) {
+      // luckydip
+      for (let i = 0; i < drawnBalls.length; i++) {
+        for (let j = 0; j < luckyDipTotal.length; j++) {
+          if (drawnBalls[i] == luckyDipTotal[j]) {
+            matchingNums.push(drawnBalls[i]);
+            console.log(matchingNums, "matched balls");
+          }
+          console.log(matchingNums.length, "i am length");
+          winChecker(matchingNums);
+        }
+      }
+    } else if (userGuess.length === maxResultsLength) {
+      // guessed
+      for (let i = 0; i < drawnBalls.length; i++) {
+        for (let k = 0; k < userGuess.length; k++) {
+          if (drawnBalls[i] == userGuess[k]) {
+            matchingNums.push(drawnBalls[i]);
+            console.log(matchingNums, "matched balls");
+          }
+          winChecker(matchingNums);
+        }
+      }
+    }
+    submitBtn.setAttribute("disabled", "");
+  } catch (error) {
+    console.log(error, "i am error");
+    return;
+  }
+  console.log(drawnBalls, "drawn");
+  console.log(luckyDipTotal, "lucky");
+  console.log(matchingNums, "matched");
+}
 // RESET
 let reset = document.querySelector("#reset");
 reset.addEventListener("click", function (e) {
@@ -255,7 +246,9 @@ reset.addEventListener("click", function (e) {
   picked5.value = "";
   picked6.value = "";
 
-  submitBtn.removeEventListener("click", toggle, false);
+  submitLuckyDipBtn.removeAttribute("disabled");
+  submitBtn.removeAttribute("disabled");
+  submitPicked.removeAttribute("disabled");
 });
 // alt rest option
 // window.location.reload()
